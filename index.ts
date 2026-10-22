@@ -15,11 +15,16 @@
  */
 
 import { execFile } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
+import { homedir } from "node:os";
+import { join } from "node:path";
 import type { Plugin } from "@opencode/plugin";
 
 const TAG = process.env.LINKLY_MEMORY_TAG || "记忆";
-const CLI = process.env.LINKLY_CLI || "linkly";
+// The CLI installer puts linkly here; OpenCode's background service may run without it on PATH.
+const INSTALLED_CLI = join(homedir(), ".linkly", "bin", process.platform === "win32" ? "linkly.exe" : "linkly");
+const CLI = process.env.LINKLY_CLI || (existsSync(INSTALLED_CLI) ? INSTALLED_CLI : "linkly");
 const APP_NAME = "OpenCode";
 const TOOL = "linkly_ai_memory_save";
 const TIMEOUT_MS = 3000;

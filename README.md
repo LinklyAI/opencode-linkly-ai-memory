@@ -37,7 +37,7 @@ The plugin loads up to 200 memories and puts up to 12,000 characters of them in 
 | Environment variable | Default | Purpose |
 | --- | --- | --- |
 | `LINKLY_MEMORY_TAG` | `记忆` | Which tag marks a note as a memory |
-| `LINKLY_CLI` | `linkly` | Command name or path of the Linkly AI CLI |
+| `LINKLY_CLI` | `~/.linkly/bin/linkly` if it exists, otherwise `linkly` on PATH | Command name or path of the Linkly AI CLI |
 
 OpenCode 2.x runs plugins in its background service, so set these for the service, for example `opencode service set env LINKLY_MEMORY_TAG 工作记忆`, then restart it with `opencode service restart`.
 

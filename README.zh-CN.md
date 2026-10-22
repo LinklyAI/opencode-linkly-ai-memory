@@ -35,7 +35,7 @@ opencode plugin add github:LinklyAI/opencode-linkly-ai-memory
 | 环境变量 | 默认值 | 作用 |
 | --- | --- | --- |
 | `LINKLY_MEMORY_TAG` | `记忆` | 哪个标签算记忆 |
-| `LINKLY_CLI` | `linkly` | Linkly AI 命令行的命令名或路径 |
+| `LINKLY_CLI` | 有 `~/.linkly/bin/linkly` 就用它，否则用 PATH 里的 `linkly` | Linkly AI 命令行的命令名或路径 |
 
 OpenCode 2.x 的插件跑在它的后台服务里，所以环境变量要设给后台服务，比如 `opencode service set env LINKLY_MEMORY_TAG 工作记忆`，再用 `opencode service restart` 重启服务。
 
