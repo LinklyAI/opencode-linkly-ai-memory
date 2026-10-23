@@ -122,7 +122,9 @@ export default {
 		let memories: Memory[] | undefined;
 		let error: string | undefined;
 		let attempted = false;
-		let warned = false;
+		// Each session is told once that memory is unavailable, in every model call of that turn.
+		const warned = new Set<string>();
+		const warning = new Set<string>();
 
 		const refresh = async () => {
 			attempted = true;
@@ -135,19 +137,27 @@ export default {
 			}
 		};
 
+		const admit = async (sessionID: string) => {
+			await refresh();
+			warning.delete(sessionID);
+			if (memories === undefined && !warned.has(sessionID)) {
+				warned.add(sessionID);
+				warning.add(sessionID);
+			}
+		};
+
 		// Once per user message, not before every model call.
-		await ctx.session.hook("prompt", refresh);
+		await ctx.session.hook("prompt", (event) => admit(event.sessionID));
 
 		await ctx.session.hook("context", async (event) => {
-			if (!attempted) await refresh();
+			if (!attempted) await admit(event.sessionID);
 			if (memories !== undefined) {
 				event.system.push({ type: "text", text: renderSection(memories) });
-			} else if (error !== undefined && !warned) {
+			} else if (warning.has(event.sessionID)) {
 				// Server plugins can't show a notice in the UI, so the model passes it on.
-				warned = true;
 				event.system.push({
 					type: "text",
-					text: `Linkly AI memory is unavailable: ${error}. Before anything else in your reply, tell the user in one short sentence that their Linkly AI memories could not be loaded, quoting this reason.`,
+					text: `Linkly AI memory is unavailable: ${error}. Before anything else in your reply, tell the user in one short sentence that their Linkly AI memories could not be loaded, quoting this reason. If you already told them since the user's last message, don't repeat it.`,
 				});
 			}
 		});
