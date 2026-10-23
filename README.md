@@ -11,7 +11,7 @@ Tell OpenCode a lasting preference once, such as "write code comments in English
 Requirements:
 
 - OpenCode 2.x. Check with `opencode --version`. The installer at `opencode.ai/install` still installs OpenCode 1; install 2.x with `curl -fsSL https://opencode.ai/v2/install | bash`
-- [Linkly AI Desktop](https://linkly.ai) running, with the `linkly` CLI installed. In the Desktop app, open the Agent page and click Install next to Linkly AI CLI, or run `curl -sSL https://updater.linkly.ai/cli/install.sh | sh`
+- [Linkly AI Desktop](https://linkly.ai) running, with the `linkly` CLI installed. In the Desktop app, open the **Agent usage** page and click **Install** in the **Linkly AI CLI** row under **Advanced**, or run `curl -sSL https://updater.linkly.ai/cli/install.sh | sh`
 
 Then run:
 

@@ -9,7 +9,7 @@
  *
  * Requirements:
  * - OpenCode 2.x
- * - Linkly AI Desktop running and the `linkly` CLI on PATH
+ * - Linkly AI Desktop running and the `linkly` CLI installed (in ~/.linkly/bin or on PATH)
  *
  * Install: opencode plugin add github:LinklyAI/opencode-linkly-ai-memory
  */
