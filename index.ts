@@ -55,6 +55,8 @@ function runCli(args: string[], input = ""): Promise<string> {
 				reject(new Error(message));
 			},
 		);
+		// If the CLI exits before reading its input, the write fails with EPIPE; the exit status already reports why.
+		child.stdin?.on("error", () => {});
 		child.stdin?.end(input);
 	});
 }
